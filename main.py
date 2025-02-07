@@ -31,11 +31,23 @@ headers = {
 #print(response.text)
 
 pixel_endpoint = f"{pixela_endpoint}/{USERNAME}/graphs/{GRAPH}"
-today = datetime(year=2025, month=1, day=29)
+today = datetime.now()
+today_format = today.strftime("%Y%m%d")
 pixel_config ={
-    "date": today.strftime("%Y%m%d"),
-    "quantity": "20"
+    "date": today,
+    "quantity": input("How many days of the challenge did you completed today? ")
 }
 
 response = requests.post(url=pixel_endpoint, json=pixel_config, headers=headers)
 print(response.text)
+
+pixel_alter_endpoint = f"{pixela_endpoint}/{USERNAME}/graphs/{GRAPH}/{today_format}"
+pixel_alter_config = {
+    "quantity": "7"
+}
+#response = requests.put(url = pixel_alter_endpoint, json=pixel_alter_config, headers=headers)
+#print(response.text)
+
+pixel_delete_endpoint = f"{pixela_endpoint}/{USERNAME}/graphs/{GRAPH}/{today_format}"
+#response = requests.delete(url= pixel_delete_endpoint, headers=headers)
+#print(response.text)
